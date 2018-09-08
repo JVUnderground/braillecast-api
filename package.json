@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "A video to audiocast conversion service",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "AWS_REGION=us-west-2 TESTING=true _mocha test/**/*.js --colors --timeout 10000"
   },
   "author": "João Henrique Carneiro",
   "license": "ISC",
