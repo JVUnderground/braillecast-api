@@ -1,0 +1,41 @@
+service: yt2rss
+
+plugins:
+  - serverless-pseudo-parameters
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: us-west-2
+  stage: ${opt:stage, 'dev'}
+  environment:
+    VIDEO_TABLE: ${self:provider.stage}.Video
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:GetItem
+      Resource:
+        - arn:aws:dynamodb:#{AWS::Region}:#{AWS::AccountId}:table/${self:provider.environment.VIDEO_TABLE}
+    - Effect: "Allow"
+      Action:
+        - sns:Publish
+      Resource:
+        - arn:aws:sns:#{AWS::Region}:#{AWS::AccountId}:${self:provider.stage}_notify_convert_video
+
+
+functions:
+  create-video:
+    handler: src/web/video.create
+    events:
+      - http:
+          path: videos
+          method: post
+          cors:
+            origins:
+              - '*'
+  convert-video:
+    handler: src/service/video.convert
+    events:
+      - sns: ${self:provider.stage}_notify_convert_video
+

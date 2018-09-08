@@ -1,0 +1,23 @@
+{
+  "name": "yt2rss",
+  "version": "0.1.0",
+  "description": "A video to audiocast conversion service",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "João Henrique Carneiro",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.311.0",
+    "youtube-dl": "^1.12.2"
+  },
+  "devDependencies": {
+    "awscred": "^1.4.1",
+    "bluebird": "^3.5.2",
+    "chai": "^4.1.2",
+    "lambda-tester": "^3.5.0",
+    "mocha": "^5.2.0",
+    "serverless-pseudo-parameters": "^2.2.0"
+  }
+}
